@@ -5,157 +5,663 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080d18">
-<meta name="description" content="AgentKey is a digital identity NFT collection designed for the AI agent era. Your agent, your key.">
-<meta name="robots" content="index,follow">
-<meta property="og:type" content="website">
+<meta name="description" content="AgentKey — a digital identity NFT collection designed for the AI agent era.">
 <meta property="og:title" content="AgentKey — Your Identity. Your Key.">
-<meta property="og:description" content="Discover AgentKey, a digital identity NFT collection designed for the AI agent era.">
+<meta property="og:description" content="A digital identity NFT collection for the AI agent era.">
 <meta property="og:url" content="https://agentkey.xyz/">
 <link rel="canonical" href="https://agentkey.xyz/">
-<link rel="icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>AgentKey — Your Identity. Your Key.</title>
 
 <style>
 :root {
-  --bg:#080d18;
-  --panel:#101a2b;
-  --text:#f1f3f8;
-  --muted:#9ba9bf;
-  --blue:#67c9ff;
-  --gold:#d8b875;
-  --line:rgba(160,190,230,.16);
+  --bg: #080d18;
+  --panel: #101a2b;
+  --text: #f1f3f8;
+  --muted: #9ba9bf;
+  --blue: #67c9ff;
+  --gold: #d8b875;
+  --line: rgba(160,190,230,.16);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-button,textarea{font:inherit}
-.nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:17px 6%;background:rgba(8,13,24,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
-.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.brand img{width:30px;height:30px;object-fit:cover;border-radius:6px}
-.logo{font:23px Georgia,serif;letter-spacing:3px;color:var(--gold)}
-.links{display:flex;gap:22px}
-.links a{color:var(--muted);font-size:10px;letter-spacing:1.5px;text-transform:uppercase}
-.links a:hover{color:var(--blue)}
-.button{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:12px 18px;border:1px solid var(--gold);border-radius:3px;color:var(--gold);background:transparent;font-size:12px;font-weight:600;cursor:pointer;transition:.2s}
-.button:hover{transform:translateY(-2px)}
-.button.primary{background:var(--gold);color:#10121a}
-.hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:36px;min-height:590px;padding:80px 7%;overflow:hidden;background:radial-gradient(ellipse at 78% 48%,rgba(31,103,170,.24),transparent 43%),linear-gradient(135deg,#080d18,#0b1527 65%,#080d18)}
-.hero:after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.12;background-image:linear-gradient(rgba(103,201,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(103,201,255,.08) 1px,transparent 1px);background-size:56px 56px}
-.hero-copy{max-width:650px;position:relative;z-index:2}
-.eyebrow{color:var(--blue);font-size:10px;letter-spacing:3px;line-height:1.7;text-transform:uppercase}
-h1{margin:24px 0;font-size:clamp(49px,7vw,88px);line-height:.99;letter-spacing:-3px;font-weight:500}
-h1 span{color:var(--gold);font-family:Georgia,serif;font-weight:400;font-style:italic}
-.intro{max-width:510px;color:var(--muted);line-height:1.9;font-size:15px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.art{flex:0 1 350px;min-width:220px;position:relative;z-index:1}
-.key-art{width:100%;filter:drop-shadow(0 0 35px rgba(67,169,255,.2));animation:float 5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);margin:0 6%;padding:26px 0;border-block:1px solid var(--line)}
-.stat{text-align:center;border-right:1px solid var(--line);padding:0 10px}
-.stat:last-child{border:0}
-.stat strong{display:block;color:var(--gold);font-size:clamp(17px,2.5vw,25px)}
-.stat span{display:block;margin-top:7px;color:var(--muted);font-size:9px;letter-spacing:2px}
-.section{padding:75px 7%}
-.section-heading{text-align:center;max-width:720px;margin:0 auto 38px}
-.section-heading h2,.cta h2{font:400 clamp(30px,4vw,44px)/1.2 Georgia,serif;margin:12px 0}
-.section-heading p,.cta>p{color:var(--muted);font-size:14px;line-height:1.8}
-.features,.rarities{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.feature,.rarity,.market-card{padding:25px;background:linear-gradient(145deg,#101a2b,#0b1220);border:1px solid var(--line)}
-.feature .number{color:var(--blue);font-size:10px;letter-spacing:2px}
-.feature h3,.rarity h3,.market-card h3{font-weight:500}
-.feature p,.rarity p,.market-card p{color:var(--muted);font-size:13px;line-height:1.8}
-.cta{max-width:1000px;margin:auto;padding:40px 24px;text-align:center;background:radial-gradient(ellipse at top,rgba(44,110,170,.14),transparent 60%),#0c1422;border:1px solid var(--line)}
-.mint-progress{max-width:760px;margin:30px auto 0;text-align:left}
-.progress-top{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.progress-label{font-size:10px;letter-spacing:3px;color:var(--muted)}
-.minted-number{margin-top:8px;font:500 clamp(32px,5vw,50px)/1.1 Georgia,serif;color:var(--text);font-variant-numeric:tabular-nums}
-.completion{text-align:right}
-.completion-number{margin-top:8px;color:var(--blue);font:500 25px Georgia,serif}
-.progress-track{height:7px;background:#263044;border-radius:99px;overflow:hidden;margin:22px 0 12px}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--gold));transition:width .5s ease}
-.progress-note{font-size:11px;color:var(--muted);line-height:1.7}
-.post-preview,.prompt-panel{max-width:760px;margin:28px auto 0;padding:23px;text-align:left;background:#0b1423;border:1px solid rgba(216,184,117,.3)}
-.post-preview>p{color:var(--text);font-size:15px;line-height:1.8;overflow-wrap:anywhere}
-.mint-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
-.prompt-panel h3{font-size:19px;font-weight:500}
-.prompt-warning{padding:12px;border-left:2px solid var(--gold);background:rgba(216,184,117,.07);color:#e5d3a6;font-size:12px;line-height:1.7}
-#agent-prompt{display:block;width:100%;resize:vertical;min-height:250px;padding:14px;border:1px solid var(--line);border-radius:3px;background:var(--bg);color:#dbe9f7;font:12px/1.7 monospace}
-.copy-status{color:var(--blue);font-size:12px}
-.prompt-footnote{font-size:11px!important;color:var(--muted)!important}
-.market-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.placeholder-art{min-height:120px;display:grid;place-items:center;background:#0b1321;color:var(--gold);font-size:38px}
-.market-card .button{width:100%;margin-top:12px}
-.countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:30px 0}
-.time-box{min-width:85px;padding:17px;background:#0b1423;border:1px solid rgba(216,184,117,.34);text-align:center}
-.time-box strong{display:block;color:var(--gold);font:500 32px Georgia,serif;font-variant-numeric:tabular-nums}
-.time-box span{display:block;margin-top:8px;color:var(--muted);font-size:9px;letter-spacing:2px}
-.rarity{text-align:center}
-.rarity .symbol{font-size:40px;color:var(--gold)}
-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:28px 6%;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
-footer .logo{font-size:19px}
-[hidden]{display:none!important}
-@media(max-width:900px){.nav{flex-wrap:wrap;padding:16px 4%}.links{gap:14px;order:3;width:100%;justify-content:center}.links a{font-size:9px}.hero{min-height:0;padding:65px 6%}.features{grid-template-columns:1fr}.market-preview{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.nav{gap:12px}.logo{font-size:20px}.links{justify-content:flex-start;overflow-x:auto;padding:5px 0}.links a{white-space:nowrap}.hero{flex-direction:column;text-align:center;padding:55px 6% 40px}.hero-copy{margin:auto}h1{letter-spacing:-1.5px}.intro{margin:auto;font-size:14px}.actions{justify-content:center}.art{max-width:250px;min-width:0}.stats{margin:0 4%;padding:20px 0}.stat strong{font-size:15px}.stat span{font-size:7px;letter-spacing:1px}.section{padding:55px 6%}.rarities,.market-preview{grid-template-columns:1fr}.cta{padding:28px 14px}.post-preview,.prompt-panel{padding:16px}.mint-actions .button{flex:1 1 100%}.progress-top{align-items:flex-start}.completion{text-align:left}footer{justify-content:center;text-align:center}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, textarea { font: inherit; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 17px 6%;
+  background: rgba(8,13,24,.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo {
+  font: 23px Georgia, serif;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+
+.links a {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.links a:hover { color: var(--blue); }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 43px;
+  padding: 12px 18px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  color: var(--gold);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.button:hover { transform: translateY(-2px); }
+
+.button.primary {
+  background: var(--gold);
+  color: #10121a;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  min-height: 580px;
+  padding: 80px 7%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 78% 48%, rgba(31,103,170,.24), transparent 43%),
+    linear-gradient(135deg,#080d18,#0b1527 65%,#080d18);
+}
+
+.hero:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(103,201,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,201,255,.08) 1px,transparent 1px);
+  background-size: 56px 56px;
+}
+
+.hero-copy {
+  max-width: 650px;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 3px;
+  line-height: 1.7;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 24px 0;
+  font-size: clamp(49px,7vw,88px);
+  line-height: .99;
+  letter-spacing: -3px;
+  font-weight: 500;
+}
+
+h1 span {
+  color: var(--gold);
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.intro {
+  max-width: 510px;
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 15px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.art {
+  flex: 0 1 360px;
+  min-width: 220px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.key-art {
+  width: 100%;
+  max-width: 340px;
+  filter: drop-shadow(0 0 35px rgba(67,169,255,.2));
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  margin: 0 6%;
+  padding: 26px 0;
+  border-block: 1px solid var(--line);
+}
+
+.stat {
+  text-align: center;
+  border-right: 1px solid var(--line);
+  padding: 0 10px;
+}
+
+.stat:last-child { border: 0; }
+
+.stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(17px,2.5vw,25px);
+}
+
+.stat span {
+  display: block;
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.section { padding: 75px 7%; }
+
+.section-heading {
+  text-align: center;
+  margin: 0 auto 38px;
+  max-width: 720px;
+}
+
+.section-heading h2,
+.cta h2 {
+  font: 400 clamp(30px,4vw,44px)/1.2 Georgia,serif;
+  margin: 12px 0;
+}
+
+.section-heading p,
+.cta > p {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.features,
+.rarities {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+}
+
+.feature,
+.rarity,
+.market-card {
+  padding: 25px;
+  background: linear-gradient(145deg,#101a2b,#0b1220);
+  border: 1px solid var(--line);
+}
+
+.feature .number {
+  color: var(--blue);
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+.feature h3,
+.rarity h3,
+.market-card h3 {
+  font-weight: 500;
+}
+
+.feature p,
+.rarity p,
+.market-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.cta {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 24px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top,rgba(44,110,170,.14),transparent 60%),
+    #0c1422;
+  border: 1px solid var(--line);
+}
+
+.post-preview,
+.prompt-panel {
+  max-width: 720px;
+  margin: 24px auto 0;
+  padding: 23px;
+  text-align: left;
+  background: #0b1423;
+  border: 1px solid var(--line);
+}
+
+.post-preview > p {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.mint-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.prompt-panel h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.prompt-warning {
+  padding: 12px;
+  border-left: 2px solid var(--gold);
+  background: rgba(216,184,117,.07);
+  color: #e5d3a6 !important;
+  font-size: 12px !important;
+  line-height: 1.8;
+}
+
+#agent-prompt {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  min-height: 240px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--bg);
+  color: #dbe9f7;
+  font: 12px/1.7 monospace;
+}
+
+.copy-status {
+  color: var(--blue);
+  font-size: 12px;
+}
+
+.prompt-footnote,
+.progress-caption {
+  font-size: 11px !important;
+  color: var(--muted) !important;
+  line-height: 1.8;
+}
+
+.mint-progress {
+  margin-bottom: 28px;
+  padding: 22px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.progress-title {
+  font: 400 clamp(25px,4vw,34px)/1.2 Georgia,serif;
+  margin: 8px 0 22px;
+}
+
+.progress-values {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+}
+
+.progress-values > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.progress-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.progress-values strong {
+  font: 500 clamp(25px,4vw,36px)/1.2 Georgia,serif;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-percent-wrap {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.progress-percent-wrap strong { color: var(--blue); }
+
+.progress-track {
+  height: 7px;
+  margin-top: 18px;
+  border-radius: 99px;
+  background: #263244;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg,var(--blue),var(--gold));
+  transition: width .4s ease;
+}
+
+.progress-caption { margin: 12px 0 0; }
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+
+.time-box {
+  min-width: 85px;
+  padding: 17px;
+  background: #0b1423;
+  border: 1px solid rgba(216,184,117,.34);
+}
+
+.time-box strong {
+  display: block;
+  color: var(--gold);
+  font: 500 32px Georgia,serif;
+}
+
+.time-box span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.market-preview {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.placeholder-art {
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  background: #0b1321;
+  color: var(--gold);
+  font-size: 36px;
+}
+
+.market-card .button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.rarity { text-align: center; }
+.rarity .symbol { font-size: 40px; color: var(--gold); }
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 28px 6%;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+footer .logo { font-size: 19px; }
+
+[hidden] { display: none !important; }
+
+@media(max-width:900px) {
+  .nav { flex-wrap: wrap; padding: 16px 4%; }
+  .links {
+    gap: 14px;
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .links a { font-size: 9px; }
+  .hero { min-height: 0; padding: 65px 6%; }
+  .features { grid-template-columns: 1fr; }
+  .market-preview { grid-template-columns: 1fr 1fr; }
+}
+
+@media(max-width:600px) {
+  .nav { gap: 12px; }
+  .logo { font-size: 20px; }
+  .links {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 5px 0;
+  }
+  .links a { white-space: nowrap; }
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 55px 6% 40px;
+  }
+  .hero-copy { margin: auto; }
+  h1 { letter-spacing: -1.5px; }
+  .intro { margin: auto; font-size: 14px; }
+  .actions { justify-content: center; }
+  .art { max-width: 250px; min-width: 0; }
+  .stats { margin: 0 4%; padding: 20px 0; }
+  .stat strong { font-size: 15px; }
+  .stat span { font-size: 7px; letter-spacing: 1px; }
+  .section { padding: 55px 6%; }
+  .rarities,
+  .market-preview { grid-template-columns: 1fr; }
+  .cta { padding: 28px 14px; }
+  .post-preview,
+  .prompt-panel { padding: 16px; }
+  .mint-actions .button { flex: 1 1 100%; }
+  footer { justify-content: center; text-align: center; }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  *,
+  *:before,
+  *:after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
+
 <body>
+
 <header class="nav">
-  <a class="brand" href="#home"><img src="/favicon-32.png" alt="" width="30" height="30"><span class="logo">AGENTKEY</span></a>
+  <a class="brand" href="#home" aria-label="AgentKey home">
+    <span class="logo">AGENTKEY</span>
+  </a>
+
   <nav class="links" aria-label="Main navigation">
-    <a href="#home">Home</a><a href="#mint">Mint</a><a href="#market">Market</a><a href="#staking">Staking</a><a href="#collection">Collection</a>
+    <a href="#home">Home</a>
+    <a href="#mint">Mint</a>
+    <a href="#market">Market</a>
+    <a href="#staking">Staking</a>
+    <a href="#collection">Collection</a>
   </nav>
+
   <a class="button" href="#mint">Explore AgentKey</a>
 </header>
 
 <main>
+
 <section class="hero" id="home">
   <div class="hero-copy">
     <div class="eyebrow">A New Era of Digital Identity</div>
+
     <h1>Your Identity.<br>Your <span>Key.</span></h1>
-    <p class="intro">In a world powered by intelligent agents, ownership begins with identity. AgentKey is a digital collectible built around the idea of a unique key for the next generation of agent-powered experiences.</p>
+
+    <p class="intro">
+      In a world powered by intelligent agents, ownership begins with identity.
+      AgentKey is a digital collectible built around the idea of a unique key
+      for the next generation of agent-powered experiences.
+    </p>
+
     <div class="actions">
       <a class="button primary" href="#collection">Explore Collection ↗</a>
       <a class="button" href="#about">Discover AgentKey</a>
     </div>
   </div>
+
   <div class="art">
     <svg class="key-art" viewBox="0 0 360 430" role="img" aria-label="Abstract futuristic silver and blue key">
       <defs>
-        <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e3f5ff"/><stop offset="38%" stop-color="#69c9ff"/><stop offset="70%" stop-color="#4d7ea8"/><stop offset="100%" stop-color="#d8b875"/></linearGradient>
-        <radialGradient id="glow"><stop offset="0%" stop-color="#338dd0" stop-opacity=".4"/><stop offset="100%" stop-color="#338dd0" stop-opacity="0"/></radialGradient>
+        <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#e3f5ff"/>
+          <stop offset="38%" stop-color="#69c9ff"/>
+          <stop offset="70%" stop-color="#4d7ea8"/>
+          <stop offset="100%" stop-color="#d8b875"/>
+        </linearGradient>
+        <radialGradient id="glow">
+          <stop offset="0%" stop-color="#338dd0" stop-opacity=".4"/>
+          <stop offset="100%" stop-color="#338dd0" stop-opacity="0"/>
+        </radialGradient>
       </defs>
+
       <circle cx="180" cy="180" r="155" fill="url(#glow)"/>
+
       <g stroke="url(#metal)" stroke-width="2" fill="none">
-        <circle cx="180" cy="115" r="67"/><circle cx="180" cy="115" r="48" stroke-dasharray="4 7"/><circle cx="180" cy="115" r="28"/>
-        <path d="M180 143 V316 M180 260 H228 V284 H204 V308 H228 V332 H180 M180 286 H148 V310 H162 V332 H148 V354 H180"/>
-        <path d="M113 115 H72 V135 H96 V155 H72 V175 H118 M247 115 H288 V135 H264 V155 H288 V175 H242"/>
-        <path d="M132 62 L112 43 H248 L228 62 M125 197 L101 218 V246 H125 M235 197 L259 218 V246 H235 M140 380 H220 L205 395 H155 Z"/>
+        <circle cx="180" cy="115" r="67"/>
+        <circle cx="180" cy="115" r="48" stroke-dasharray="4 7"/>
+        <circle cx="180" cy="115" r="28"/>
+        <path d="M180 143 V316 M180 260 H228 V284 H204 V308 H228 V332 H180"/>
+        <path d="M180 286 H148 V310 H162 V332 H148 V354 H180"/>
+        <path d="M113 115 H72 V135 H96 V155 H72 V175 H118"/>
+        <path d="M247 115 H288 V135 H264 V155 H288 V175 H242"/>
+        <path d="M132 62 L112 43 H248 L228 62"/>
+        <path d="M125 197 L101 218 V246 H125"/>
+        <path d="M235 197 L259 218 V246 H235"/>
+        <path d="M140 380 H220 L205 395 H155 Z"/>
       </g>
+
       <circle cx="180" cy="115" r="9" fill="#d8b875"/>
     </svg>
   </div>
 </section>
 
 <section class="stats" aria-label="Collection overview">
-  <div class="stat"><strong>12,350</strong><span>TOTAL COLLECTION</span></div>
-  <div class="stat"><strong>BNB Chain</strong><span>BLOCKCHAIN</span></div>
-  <div class="stat"><strong>AI AGENT</strong><span>MINT EXPERIENCE</span></div>
+  <div class="stat">
+    <strong>12,350</strong>
+    <span>TOTAL COLLECTION</span>
+  </div>
+  <div class="stat">
+    <strong>BNB Chain</strong>
+    <span>BLOCKCHAIN</span>
+  </div>
+  <div class="stat">
+    <strong>AI AGENT</strong>
+    <span>MINT EXPERIENCE</span>
+  </div>
 </section>
 
 <section class="section" id="about">
   <div class="section-heading">
     <div class="eyebrow">Beyond Collectibles</div>
     <h2>A Key to the Agent Era</h2>
-    <p>A digital collectible built for a world of AI agents.</p>
+    <p>More than an image. A digital collectible built for a world of AI agents.</p>
   </div>
+
   <div class="features">
-    <article class="feature"><div class="number">01 / IDENTITY</div><h3>Digital Ownership</h3><p>Each AgentKey is a distinct on-chain collectible with its own token identity and verifiable ownership.</p></article>
-    <article class="feature"><div class="number">02 / INTELLIGENCE</div><h3>Agent-Powered Access</h3><p>Designed around an experience where supported AI agents help users interact with blockchain applications.</p></article>
-    <article class="feature"><div class="number">03 / ECOSYSTEM</div><h3>Built to Participate</h3><p>Explore the collection and discover the AgentKey ecosystem.</p></article>
+    <article class="feature">
+      <div class="number">01 / IDENTITY</div>
+      <h3>Digital Ownership</h3>
+      <p>Each AgentKey is a distinct on-chain collectible with its own token identity and verifiable ownership.</p>
+    </article>
+
+    <article class="feature">
+      <div class="number">02 / INTELLIGENCE</div>
+      <h3>Agent-Powered Access</h3>
+      <p>Designed around an experience where supported AI agents help users interact with blockchain applications.</p>
+    </article>
+
+    <article class="feature">
+      <div class="number">03 / ECOSYSTEM</div>
+      <h3>Built to Participate</h3>
+      <p>Explore the collection, discover the marketplace, and learn about the AgentKey ecosystem.</p>
+    </article>
   </div>
 </section>
 
@@ -163,55 +669,120 @@ footer .logo{font-size:19px}
   <div class="cta">
     <div class="eyebrow">Community First · Agent-Powered Mint</div>
     <h2>Your Agent. Your Key.</h2>
-    <p>Share AgentKey on X, then copy the prompt into a compatible AI agent using Binance Agentic Wallet. No X post verification is performed.</p>
 
-    <!-- Mint statistics are intentionally placed directly above the prompt. -->
-    <div class="mint-progress" aria-live="polite">
-      <div class="progress-top">
-        <div>
-          <div class="progress-label">MINTED</div>
-          <div class="minted-number" id="minted-count">—</div>
-        </div>
-        <div class="completion">
-          <div class="progress-label">COMPLETION</div>
-          <div class="completion-number" id="minted-percent">—%</div>
-        </div>
-      </div>
-      <div class="progress-track" role="progressbar" aria-label="Mint progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-      </div>
-      <p class="progress-note" id="minted-caption">Live blockchain statistics will appear after the official contract is connected.</p>
-    </div>
+    <p>
+      Share AgentKey on X, then copy the prompt into a compatible AI agent
+      using Binance Agentic Wallet. No X post verification is performed.
+    </p>
 
-    <div class="post-preview">
+    <!-- TEMPLATE DAN TOMBOL X: HILANG SETELAH DIKLIK -->
+    <div class="post-preview" id="post-preview">
       <div class="eyebrow">YOUR X POST · RANDOM TEMPLATE</div>
       <p id="x-template"></p>
+
       <div class="mint-actions">
-        <button class="button" id="new-template" type="button">↻ New template</button>
-        <button class="button primary" id="post-x" type="button">Post on X ↗</button>
+        <button class="button" id="new-template" type="button">
+          ↻ New template
+        </button>
+
+        <button class="button primary" id="post-x" type="button">
+          Post on X ↗
+        </button>
       </div>
     </div>
 
+    <!-- PANEL INI TERSEMBUNYI SAMPAI TOMBOL POST ON X DIKLIK -->
     <div class="prompt-panel" id="prompt-panel" hidden>
+
+      <!-- MINT PROGRESS MUNCUL BERSAMA PROMPT -->
+      <div class="mint-progress">
+        <div class="eyebrow">AGENTKEY COLLECTION</div>
+        <h3 class="progress-title">Mint Progress</h3>
+
+        <div class="progress-values">
+          <div>
+            <span class="progress-label">MINTED</span>
+            <strong id="minted-count">—</strong>
+          </div>
+
+          <div class="progress-percent-wrap">
+            <span class="progress-label">COMPLETION</span>
+            <strong id="minted-percent">—%</strong>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="minted-bar" class="progress-fill"></div>
+        </div>
+
+        <p id="minted-caption" class="progress-caption">
+          Live mint statistics will appear when the production contract is connected.
+        </p>
+      </div>
+
       <div class="eyebrow">AI AGENT PROMPT</div>
       <h3>Copy this prompt into your AI agent</h3>
-      <p class="prompt-warning">The official production contract address is not configured yet. The prompt will stop rather than use a simulated Remix VM address.</p>
-      <textarea id="agent-prompt" rows="12" readonly aria-label="AgentKey mint prompt"></textarea>
+
+      <p class="prompt-warning">
+        The production contract is not configured yet. Do not execute a mint
+        transaction until the official BNB Smart Chain contract has been
+        deployed and verified.
+      </p>
+
+      <textarea
+        id="agent-prompt"
+        rows="12"
+        readonly
+        aria-label="AgentKey mint prompt"
+      ></textarea>
+
       <div class="mint-actions">
-        <button class="button primary" id="copy-prompt" type="button">Copy mint prompt</button>
-        <span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+        <button class="button primary" id="copy-prompt" type="button">
+          Copy mint prompt
+        </button>
+
+        <span id="copy-status" class="copy-status" role="status" aria-live="polite"></span>
       </div>
-      <p class="prompt-footnote">Never share your seed phrase or private key. Review the transaction preview and approve it yourself in your wallet.</p>
+
+      <p class="prompt-footnote">
+        Never share your seed phrase or private key. Review the transaction
+        preview and approve it yourself in your wallet.
+      </p>
     </div>
   </div>
 </section>
 
 <section class="section" id="market">
-  <div class="section-heading"><div class="eyebrow">Agent-Powered Trading</div><h2>The AgentKey Market</h2><p>Discover digital keys and prepare to trade through your AI agent.</p></div>
+  <div class="section-heading">
+    <div class="eyebrow">Agent-Powered Trading</div>
+    <h2>The AgentKey Market</h2>
+    <p>Discover digital keys and prepare to trade through your AI agent.</p>
+  </div>
+
   <div class="market-preview">
-    <article class="market-card"><div class="placeholder-art">◇</div><div class="eyebrow">Collection Preview</div><h3>AgentKey Collectibles</h3><p>Marketplace trading is not yet connected.</p><span class="button">Trading Coming Soon</span></article>
-    <article class="market-card"><div class="placeholder-art">✧</div><div class="eyebrow">AI Agent Trading</div><h3>Buy with Your Agent</h3><p>Purchase flow will use prompts with a compatible AI agent.</p><span class="button">Coming Soon</span></article>
-    <article class="market-card"><div class="placeholder-art">✦</div><div class="eyebrow">AI Agent Trading</div><h3>Sell with Your Agent</h3><p>Listing and offer flows are not yet connected.</p><span class="button">Coming Soon</span></article>
+    <article class="market-card">
+      <div class="placeholder-art" aria-hidden="true">◇</div>
+      <div class="eyebrow">Collection Preview</div>
+      <h3>AgentKey Collectibles</h3>
+      <p>Explore the collection before marketplace trading opens.</p>
+      <span class="button">Trading Coming Soon</span>
+    </article>
+
+    <article class="market-card">
+      <div class="placeholder-art" aria-hidden="true">✧</div>
+      <div class="eyebrow">AI Agent Trading</div>
+      <h3>Buy with Your Agent</h3>
+      <p>Purchase flow will use prompts with a compatible Binance Agentic Wallet.</p>
+      <span class="button">Coming Soon</span>
+    </article>
+
+    <article class="market-card">
+      <div class="placeholder-art" aria-hidden="true">✦</div>
+      <div class="eyebrow">AI Agent Trading</div>
+      <h3>Sell with Your Agent</h3>
+      <p>Listing and offer flows will be available after marketplace integration.</p>
+      <span class="button">Coming Soon</span>
+    </article>
   </div>
 </section>
 
@@ -219,28 +790,65 @@ footer .logo{font-size:19px}
   <div class="cta">
     <div class="eyebrow">Staking</div>
     <h2>Staking Opens In</h2>
-    <div class="countdown">
-      <div class="time-box"><strong id="days">00</strong><span>Days</span></div>
-      <div class="time-box"><strong id="hours">00</strong><span>Hours</span></div>
-      <div class="time-box"><strong id="minutes">00</strong><span>Minutes</span></div>
-      <div class="time-box"><strong id="seconds">00</strong><span>Seconds</span></div>
+
+    <div class="countdown" aria-label="Countdown until staking starts">
+      <div class="time-box">
+        <strong id="days">00</strong>
+        <span>Days</span>
+      </div>
+      <div class="time-box">
+        <strong id="hours">00</strong>
+        <span>Hours</span>
+      </div>
+      <div class="time-box">
+        <strong id="minutes">00</strong>
+        <span>Minutes</span>
+      </div>
+      <div class="time-box">
+        <strong id="seconds">00</strong>
+        <span>Seconds</span>
+      </div>
     </div>
+
     <p>November 5, 2026 · 07:00 WIB</p>
   </div>
 </section>
 
 <section class="section" id="collection">
-  <div class="section-heading"><div class="eyebrow">Discover the Keys</div><h2>Three Expressions. One Collection.</h2><p>The rarity distribution remains undisclosed.</p></div>
+  <div class="section-heading">
+    <div class="eyebrow">Discover the Keys</div>
+    <h2>Three Expressions. One Collection.</h2>
+    <p>Explore the visual identities of AgentKey. The rarity distribution remains undisclosed.</p>
+  </div>
+
   <div class="rarities">
-    <article class="rarity"><div class="symbol">◇</div><h3>Common</h3><p>Clean design. The beginning of the journey.</p></article>
-    <article class="rarity"><div class="symbol">✧</div><h3>Rare</h3><p>Distinctive details with a crystalline edge.</p></article>
-    <article class="rarity"><div class="symbol">✦</div><h3>Legendary</h3><p>A bold expression of the AgentKey identity.</p></article>
+    <article class="rarity">
+      <div class="symbol">◇</div>
+      <h3>Common</h3>
+      <p>Clean design. The beginning of the journey.</p>
+    </article>
+
+    <article class="rarity">
+      <div class="symbol">✧</div>
+      <h3>Rare</h3>
+      <p>Distinctive details with a crystalline edge.</p>
+    </article>
+
+    <article class="rarity">
+      <div class="symbol">✦</div>
+      <h3>Legendary</h3>
+      <p>A bold expression of the AgentKey identity.</p>
+    </article>
   </div>
 </section>
+
 </main>
 
 <footer>
-  <a class="brand" href="#home"><img src="/favicon-32.png" alt="" width="26" height="26"><span class="logo">AGENTKEY</span></a>
+  <a class="brand" href="#home">
+    <span class="logo">AGENTKEY</span>
+  </a>
+
   <span>Digital Identity for the Agent Era.</span>
   <span>© 2026 AgentKey. All rights reserved.</span>
 </footer>
@@ -249,82 +857,110 @@ footer .logo{font-size:19px}
 "use strict";
 
 /*
- * Configure only after deployment and verification of the production contract.
- * Never put the Remix VM address here.
- */
-const AGENTKEY_CONTRACT = "REPLACE_WITH_VERIFIED_BNB_MAINNET_CONTRACT_ADDRESS";
+  PENTING:
+  Jangan gunakan alamat Remix VM sebagai alamat kontrak mainnet.
+  Isi alamat di bawah hanya setelah kontrak resmi dideploy dan diverifikasi
+  di BNB Smart Chain Mainnet.
+*/
+const AGENTKEY_CONTRACT_ADDRESS =
+  "REPLACE_WITH_VERIFIED_BNB_MAINNET_CONTRACT_ADDRESS";
+
 const MINT_PRICE_BNB = "0.00038";
 const MAX_SUPPLY = 12350;
 
-const templates = [
+const xTemplates = [
   "AgentKey is building digital identity for the AI agent era. Your agent, your key. 🔑 Explore: https://agentkey.xyz #AgentKey #agentic #binance",
+
   "The agent era needs identity. Discover AgentKey — a digital key for the next wave of AI agents: https://agentkey.xyz #AgentKey #agentic #binance",
+
   "AI agents are changing how we use the internet. AgentKey explores digital identity for this new era. 🔐 Join us: https://agentkey.xyz #AgentKey #agentic #binance",
+
   "One collection. A new era of agent-powered experiences. Discover AgentKey: https://agentkey.xyz ✦ #AgentKey #agentic #binance",
+
   "Your agent. Your key. Explore AgentKey, a digital identity NFT collection for the AI agent era: https://agentkey.xyz 🚀 #AgentKey #agentic #binance"
 ];
 
 const templateEl = document.getElementById("x-template");
+const postPreview = document.getElementById("post-preview");
 const promptPanel = document.getElementById("prompt-panel");
 const promptEl = document.getElementById("agent-prompt");
 const copyStatus = document.getElementById("copy-status");
-let templateIndex = Math.floor(Math.random() * templates.length);
 
-function showTemplate() {
-  templateEl.textContent = templates[templateIndex];
-}
-showTemplate();
+let currentIndex = Math.floor(Math.random() * xTemplates.length);
 
+templateEl.textContent = xTemplates[currentIndex];
+
+/* Ganti template X secara acak. */
 document.getElementById("new-template").addEventListener("click", () => {
-  let next = templateIndex;
-  while (templates.length > 1 && next === templateIndex) {
-    next = Math.floor(Math.random() * templates.length);
+  let next = currentIndex;
+
+  while (xTemplates.length > 1 && next === currentIndex) {
+    next = Math.floor(Math.random() * xTemplates.length);
   }
-  templateIndex = next;
-  showTemplate();
+
+  currentIndex = next;
+  templateEl.textContent = xTemplates[currentIndex];
 });
 
-function makePrompt() {
-  const addressIsSet = /^0x[a-fA-F0-9]{40}$/.test(AGENTKEY_CONTRACT);
-  const contractAddress = addressIsSet
-    ? AGENTKEY_CONTRACT
-    : "[OFFICIAL MAINNET CONTRACT ADDRESS NOT CONFIGURED — STOP]";
+/* Buat prompt untuk AI agent dengan pemeriksaan keamanan. */
+function buildMintPrompt() {
+  const configured =
+    /^0x[a-fA-F0-9]{40}$/.test(AGENTKEY_CONTRACT_ADDRESS);
 
-  return `Help me mint an AgentKey (AGKEY) NFT using my Binance Agentic Wallet, if supported.
+  const contract = configured
+    ? AGENTKEY_CONTRACT_ADDRESS
+    : "[NOT CONFIGURED — STOP, DO NOT TRANSACT]";
 
-Official website: https://agentkey.xyz
+  return `Help me mint an AgentKey (AGKEY) NFT from https://agentkey.xyz using my Binance Agentic Wallet if supported.
+
 Network: BNB Smart Chain Mainnet
 Chain ID: 56
-Official contract: ${contractAddress}
+Official contract address: ${contract}
 Mint function: mint(uint256 quantity)
 Mint price: ${MINT_PRICE_BNB} BNB per NFT
 Maximum per wallet: 2 NFTs
 Requested quantity: 1 NFT unless I explicitly request 2.
 
-Safety rules:
-1. Verify the official AgentKey contract on BNB Smart Chain Mainnet.
-2. If the address is a placeholder or cannot be verified, STOP. Do not submit a transaction.
-3. Verify the ABI, mint availability, wallet limit, exact payment, network, and estimated gas.
-4. Use the wallet's supported contract-call preview flow. Show the destination, function, quantity, BNB value, and estimated gas.
-5. Wait for my explicit approval in the wallet before execution.
-6. Never request my seed phrase or private key. Never bypass wallet confirmation.
+SECURITY RULES:
+1. Independently verify this is the official AgentKey contract on BNB Smart Chain Mainnet.
+2. If the address is a placeholder or cannot be verified, STOP. Do not send a transaction.
+3. Confirm the ABI, mint availability, wallet limit, exact payment, network, and estimated gas.
+4. Use the wallet's supported contract-call preview flow. Show me the destination, function, quantity, BNB value, and estimated gas.
+5. Wait for my explicit approval in the wallet before executing.
+6. Never ask for my seed phrase or private key. Never bypass wallet security.
 7. After execution, report the transaction hash and verify the receipt and NFT ownership.
 8. Do not claim gas sponsorship unless an actual sponsorship mechanism is configured.
-9. If the wallet cannot safely execute the call, stop and explain why.`;
+9. If the wallet cannot safely execute the contract call, stop and explain why.
+
+Prepare the transaction only after all checks pass.`;
 }
 
+/*
+  ALUR UTAMA:
+  1. Buka halaman posting X.
+  2. Isi prompt AI agent.
+  3. Hilangkan template dan tombol Post on X.
+  4. Tampilkan Mint Progress dan prompt bersamaan.
+*/
 document.getElementById("post-x").addEventListener("click", () => {
-  const url = "https://twitter.com/intent/tweet?text=" +
-    encodeURIComponent(templates[templateIndex]);
+  const postUrl =
+    "https://twitter.com/intent/tweet?text=" +
+    encodeURIComponent(xTemplates[currentIndex]);
 
-  // X posting is a formality. There is no post verification.
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.open(postUrl, "_blank", "noopener,noreferrer");
 
-  promptEl.value = makePrompt();
+  promptEl.value = buildMintPrompt();
+
+  postPreview.hidden = true;
   promptPanel.hidden = false;
-  promptPanel.scrollIntoView({behavior:"smooth",block:"start"});
+
+  promptPanel.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 });
 
+/* Tombol salin prompt. */
 document.getElementById("copy-prompt").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(promptEl.value);
@@ -337,66 +973,50 @@ document.getElementById("copy-prompt").addEventListener("click", async () => {
 });
 
 /*
- * The mint counter stays disconnected until the verified production
- * contract ABI and address are available. This avoids showing fabricated data.
- */
-function updateMintProgress(minted) {
-  const countEl = document.getElementById("minted-count");
-  const percentEl = document.getElementById("minted-percent");
-  const fillEl = document.getElementById("progress-fill");
-  const barEl = document.getElementById("progress-bar");
-  const captionEl = document.getElementById("minted-caption");
+  MINT PROGRESS:
+  Tidak menampilkan angka palsu.
+  Perlu dihubungkan ke getter totalMinted() pada kontrak produksi
+  yang sudah dideploy dan diverifikasi.
+*/
+function showMintStatsUnavailable() {
+  document.getElementById("minted-count").textContent = "—";
+  document.getElementById("minted-percent").textContent = "—%";
+  document.getElementById("minted-bar").style.width = "0%";
 
-  if (!Number.isInteger(minted) || minted < 0 || minted > MAX_SUPPLY) {
-    countEl.textContent = "—";
-    percentEl.textContent = "—%";
-    fillEl.style.width = "0%";
-    barEl.setAttribute("aria-valuenow", "0");
-    captionEl.textContent = "Live blockchain statistics will appear after the official contract is connected.";
-    return;
-  }
-
-  const percent = (minted / MAX_SUPPLY) * 100;
-  countEl.textContent = minted.toLocaleString("en-US");
-  percentEl.textContent = percent.toFixed(2) + "%";
-  fillEl.style.width = percent + "%";
-  barEl.setAttribute("aria-valuenow", String(percent));
-  captionEl.textContent = "Live on-chain mint progress.";
+  document.getElementById("minted-caption").textContent =
+    "Live blockchain data will appear after the official production contract is connected.";
 }
 
-function refreshMintProgress() {
-  // No fake count is displayed while production contract is unconfigured.
-  if (!/^0x[a-fA-F0-9]{40}$/.test(AGENTKEY_CONTRACT)) {
-    updateMintProgress(null);
-    return;
-  }
+showMintStatsUnavailable();
 
-  // Connect this function to the verified totalMinted() ABI/RPC call
-  // after the production deployment address and ABI are confirmed.
-  updateMintProgress(null);
-}
-refreshMintProgress();
-setInterval(refreshMintProgress, 60000);
-
-/* November 5, 2026 at 00:00 UTC = 07:00 WIB. */
-const stakingDate = new Date("2026-11-05T00:00:00+07:00").getTime();
+/* Countdown staking: 5 November 2026 pukul 07.00 WIB. */
+const stakingDate =
+  new Date("2026-11-05T00:00:00+07:00").getTime();
 
 function updateCountdown() {
-  let left = Math.max(0, stakingDate - Date.now());
-  const days = Math.floor(left / 86400000);
-  left %= 86400000;
-  const hours = Math.floor(left / 3600000);
-  left %= 3600000;
-  const minutes = Math.floor(left / 60000);
-  const seconds = Math.floor((left % 60000) / 1000);
+  const remaining = Math.max(0, stakingDate - Date.now());
 
-  document.getElementById("days").textContent = String(days).padStart(2,"0");
-  document.getElementById("hours").textContent = String(hours).padStart(2,"0");
-  document.getElementById("minutes").textContent = String(minutes).padStart(2,"0");
-  document.getElementById("seconds").textContent = String(seconds).padStart(2,"0");
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+
+  document.getElementById("days").textContent =
+    String(days).padStart(2, "0");
+
+  document.getElementById("hours").textContent =
+    String(hours).padStart(2, "0");
+
+  document.getElementById("minutes").textContent =
+    String(minutes).padStart(2, "0");
+
+  document.getElementById("seconds").textContent =
+    String(seconds).padStart(2, "0");
 }
+
 updateCountdown();
 setInterval(updateCountdown, 1000);
 </script>
+
 </body>
 </html>
