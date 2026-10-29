@@ -783,33 +783,46 @@ footer .logo { font-size: 19px; }
   <div class="section-heading">
     <div class="eyebrow">Agent-Powered Trading</div>
     <h2>The AgentKey Market</h2>
-    <p>Discover digital keys and prepare to trade through your AI agent.</p>
+    <p>View current AgentKey listings and sales on Element, then prepare an AI-agent-assisted listing.</p>
   </div>
 
   <div class="market-preview">
     <article class="market-card">
-      <div class="placeholder-art" aria-hidden="true">◇</div>
-      <div class="eyebrow">Collection Preview</div>
-      <h3>AgentKey Collectibles</h3>
-      <p>Explore the collection before marketplace trading opens.</p>
-      <span class="button">Trading Coming Soon</span>
-    </article>
-
-    <article class="market-card">
-      <div class="placeholder-art" aria-hidden="true">✧</div>
-      <div class="eyebrow">AI Agent Trading</div>
-      <h3>Buy with Your Agent</h3>
-      <p>Purchase flow will use prompts with a compatible Binance Agentic Wallet.</p>
-      <span class="button">Coming Soon</span>
+      <div class="placeholder-art" aria-hidden="true">↗</div>
+      <div class="eyebrow">Live Marketplace</div>
+      <h3>AgentKey on Element</h3>
+      <p>Open Element's live marketplace and search for the AgentKey contract address to inspect available listings, recent sales, and collection activity.</p>
+      <a class="button primary" href="https://element.market/" target="_blank" rel="noopener noreferrer">View Live Listings &amp; Sales</a>
+      <button class="button" type="button" id="copy-market-contract" style="margin-top:10px">Copy Contract Address</button>
+      <p class="prompt-footnote">Element activity is displayed on Element itself. This website does not fabricate or independently stream sales data.</p>
     </article>
 
     <article class="market-card">
       <div class="placeholder-art" aria-hidden="true">✦</div>
       <div class="eyebrow">AI Agent Trading</div>
-      <h3>Sell with Your Agent</h3>
-      <p>Listing and offer flows will be available after marketplace integration.</p>
-      <span class="button">Coming Soon</span>
+      <h3>Prepare a Sale</h3>
+      <p>Generate a prompt for a compatible AI agent to locate your AgentKey NFT, check Element listing support, and prepare a listing.</p>
+      <button class="button primary" type="button" id="build-sell-prompt">Create Selling Prompt</button>
     </article>
+
+    <article class="market-card">
+      <div class="placeholder-art" aria-hidden="true">⌁</div>
+      <div class="eyebrow">Safety First</div>
+      <h3>Review Before Listing</h3>
+      <p>The agent must confirm the NFT, chosen price, marketplace, fees, and transaction details. It must never request your seed phrase or private key.</p>
+      <p class="prompt-footnote">Automatic execution depends on the capabilities and permissions of your connected AI agent and Element. Listing may require wallet approval and gas.</p>
+    </article>
+  </div>
+
+  <div class="prompt-panel" id="sell-prompt-panel" hidden>
+    <h3>AgentKey Selling Prompt</h3>
+    <p>Copy this prompt into your compatible AI agent in Element or Binance Agentic Wallet.</p>
+    <textarea id="sell-agent-prompt" readonly rows="13" aria-label="AgentKey selling prompt"></textarea>
+    <div class="mint-actions">
+      <button class="button primary" type="button" id="copy-sell-prompt">Copy Selling Prompt</button>
+      <a class="button" href="https://element.market/" target="_blank" rel="noopener noreferrer">Open Element</a>
+    </div>
+    <p id="sell-copy-status" class="copy-status" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -904,15 +917,15 @@ let liveMintStart = null;
 let liveReadError = false;
 
 const xTemplates = [
-  "AgentKey is building digital identity for the AI agent era. Your agent, your key. 🔑 Explore: https://agentkey.xyz #AgentKey #agentic #binance",
+  "AgentKey is building digital identity for the AI agent era. Your agent, your key. 🔑 Explore: https://agentkey.xyz #AgentKey #agentic #binance #aiagent #binanceagenticwallet",
 
-  "The agent era needs identity. Discover AgentKey — a digital key for the next wave of AI agents: https://agentkey.xyz #AgentKey #agentic #binance",
+  "The agent era needs identity. Discover AgentKey — a digital key for the next wave of AI agents: https://agentkey.xyz #AgentKey #agentic #binance #aiagent #binanceagenticwallet",
 
-  "AI agents are changing how we use the internet. AgentKey explores digital identity for this new era. 🔐 Join us: https://agentkey.xyz #AgentKey #agentic #binance",
+  "AI agents are changing how we use the internet. AgentKey explores digital identity for this new era. 🔐 Join us: https://agentkey.xyz #AgentKey #agentic #binance #aiagent #binanceagenticwallet",
 
-  "One collection. A new era of agent-powered experiences. Discover AgentKey: https://agentkey.xyz ✦ #AgentKey #agentic #binance",
+  "One collection. A new era of agent-powered experiences. Discover AgentKey: https://agentkey.xyz ✦ #AgentKey #agentic #binance #aiagent #binanceagenticwallet",
 
-  "Your agent. Your key. Explore AgentKey, a digital identity NFT collection for the AI agent era: https://agentkey.xyz 🚀 #AgentKey #agentic #binance"
+  "Your agent. Your key. Explore AgentKey, a digital identity NFT collection for the AI agent era: https://agentkey.xyz 🚀 #AgentKey #agentic #binance #aiagent #binanceagenticwallet"
 ];
 
 const templateEl = document.getElementById("x-template");
@@ -1021,6 +1034,56 @@ document.getElementById("post-x").addEventListener("click", async () => {
     behavior: "smooth",
     block: "start"
   });
+});
+
+/* Prepare an AI-agent-assisted Element listing prompt. */
+function buildSellPrompt() {
+  return `Help me list my AgentKey (AGKEY) NFT for sale on Element, if supported.
+
+Network: BNB Smart Chain Mainnet
+Collection contract: ${AGENTKEY_CONTRACT_ADDRESS}
+Collection explorer: https://bscscan.com/address/${AGENTKEY_CONTRACT_ADDRESS}
+Marketplace: https://element.market/
+
+1. Open Element and search for the exact collection contract address above. Confirm the collection and network before proceeding.
+2. Check which AgentKey NFTs I own in my connected wallet. Do not assume ownership; verify each token ID and current owner.
+3. Ask me which token ID to list and the exact asking price in BNB if I have not specified them. Do not choose a price without my confirmation.
+4. Check Element's current listing options, fees, approval requirements, and estimated gas. Do not claim a listing is live unless Element confirms it or the transaction can be verified.
+5. Prepare the listing transaction and show the token ID, price, fees, marketplace contract, and transaction details before requesting my approval.
+6. Never request or expose my seed phrase or private key. Do not transfer my NFT to an unrelated address, sign an unclear message, or approve an unlimited/unrelated transaction.
+7. Proceed only if the marketplace and transaction are supported and I approve the wallet request. If the agent cannot access Element or cannot safely create the listing, stop and give me manual steps instead.
+8. After completion, report the listing URL and transaction hash if available, and verify the listing status.
+
+Do not invent floor prices, sales, listing status, or transaction results.`;
+}
+
+document.getElementById("build-sell-prompt").addEventListener("click", () => {
+  document.getElementById("sell-agent-prompt").value = buildSellPrompt();
+  document.getElementById("sell-prompt-panel").hidden = false;
+  document.getElementById("sell-prompt-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.getElementById("copy-market-contract").addEventListener("click", async () => {
+  const button = document.getElementById("copy-market-contract");
+  try {
+    await navigator.clipboard.writeText(AGENTKEY_CONTRACT_ADDRESS);
+    button.textContent = "Contract Address Copied";
+  } catch (error) {
+    window.prompt("Copy the AgentKey contract address:", AGENTKEY_CONTRACT_ADDRESS);
+  }
+});
+
+document.getElementById("copy-sell-prompt").addEventListener("click", async () => {
+  const field = document.getElementById("sell-agent-prompt");
+  const status = document.getElementById("sell-copy-status");
+  try {
+    await navigator.clipboard.writeText(field.value);
+    status.textContent = "Selling prompt copied.";
+  } catch (error) {
+    field.focus();
+    field.select();
+    status.textContent = "Select the prompt and copy it manually.";
+  }
 });
 
 /* Copy the mint prompt. */
