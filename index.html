@@ -742,17 +742,18 @@ footer .logo { font-size: 19px; }
         </div>
 
         <p id="minted-caption" class="progress-caption">
-          Live mint statistics will appear when the production contract is connected.
+          Connecting to the AgentKey contract on BNB Smart Chain Mainnet…
         </p>
+        <p class="progress-caption" id="free-mint-caption">Free mint remaining: loading…</p>
+        <p class="progress-caption" id="mint-price-caption">Current price for 1 NFT: loading…</p>
+        <p class="progress-caption"><a href="https://bscscan.com/address/0xD302f00DA78e38B12C2453E1D47c08D6e918fbe8" target="_blank" rel="noopener noreferrer">View contract on BscScan ↗</a></p>
       </div>
 
       <div class="eyebrow">AI AGENT PROMPT</div>
       <h3>Copy this prompt into your AI agent</h3>
 
       <p class="prompt-warning">
-        The production contract is not configured yet. Do not execute a mint
-        transaction until the official BNB Smart Chain contract has been
-        deployed and verified.
+        Verify the contract address, deployed bytecode, mint rules, and exact payment in your wallet before approving any transaction.
       </p>
 
       <textarea
@@ -879,19 +880,28 @@ footer .logo { font-size: 19px; }
   <span>© 2026 AgentKey. All rights reserved.</span>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js" crossorigin="anonymous"></script>
 <script>
 "use strict";
 
-/*
-  Do not use a Remix VM address as a mainnet contract address.
-  Set this value only after the official contract is deployed and verified
-  on BNB Smart Chain Mainnet.
-*/
-const AGENTKEY_CONTRACT_ADDRESS =
-  "REPLACE_WITH_VERIFIED_BNB_MAINNET_CONTRACT_ADDRESS";
-
-const MINT_PRICE_BNB = "0.00038";
+const AGENTKEY_CONTRACT_ADDRESS = "0xD302f00DA78e38B12C2453E1D47c08D6e918fbe8";
 const MAX_SUPPLY = 12350;
+const FREE_MINT_SUPPLY = 1000;
+const PAID_MINT_PRICE_BNB = "0.0004";
+const BSC_CHAIN_ID = 56;
+const BSC_RPC_URL = "https://bsc-dataseed.binance.org/";
+const CONTRACT_ABI = [
+  "function totalMinted() view returns (uint256)",
+  "function freeMintsRemaining() view returns (uint256)",
+  "function currentMintPrice(uint256 quantity) view returns (uint256)",
+  "function MAX_SUPPLY() view returns (uint256)",
+  "function MINT_START_TIME() view returns (uint256)"
+];
+let liveMinted = null;
+let liveFreeRemaining = null;
+let livePriceOneWei = null;
+let liveMintStart = null;
+let liveReadError = false;
 
 const xTemplates = [
   "AgentKey is building digital identity for the AI agent era. Your agent, your key. 🔑 Explore: https://agentkey.xyz #AgentKey #agentic #binance",
@@ -927,37 +937,64 @@ document.getElementById("new-template").addEventListener("click", () => {
   templateEl.textContent = xTemplates[currentIndex];
 });
 
-/* Build a mint prompt with security checks. */
+/* Build a concise mint prompt. */
 function buildMintPrompt() {
-  const configured =
-    /^0x[a-fA-F0-9]{40}$/.test(AGENTKEY_CONTRACT_ADDRESS);
+  const configured = /^0x[a-fA-F0-9]{40}$/.test(AGENTKEY_CONTRACT_ADDRESS);
+  const contract = configured ? AGENTKEY_CONTRACT_ADDRESS : "[INVALID CONTRACT ADDRESS — STOP]";
 
-  const contract = configured
-    ? AGENTKEY_CONTRACT_ADDRESS
-    : "[NOT CONFIGURED — STOP, DO NOT TRANSACT]";
+  return `Mint 1 AgentKey (AGKEY) NFT using my Binance Agentic Wallet, if supported.
 
-  return `Help me mint an AgentKey (AGKEY) NFT from https://agentkey.xyz using my Binance Agentic Wallet if supported.
+Network: BNB Smart Chain Mainnet (Chain ID ${BSC_CHAIN_ID})
+Contract: ${contract}
+Explorer: https://bscscan.com/address/${contract}
+Function: mint(uint256 quantity)
+Quantity: 1 NFT
 
-Network: BNB Smart Chain Mainnet
-Chain ID: 56
-Official contract address: ${contract}
-Mint function: mint(uint256 quantity)
-Mint price: ${MINT_PRICE_BNB} BNB per NFT
-Maximum per wallet: 2 NFTs
-Requested quantity: 1 NFT unless I explicitly request 2.
+Before asking me to approve, verify the contract and network, read currentMintPrice(1) directly from the contract, and use that exact amount as the transaction value. Show me the transaction details and estimated gas first. Wait for my wallet approval. Never ask for my seed phrase or private key. If any check fails or the wallet cannot safely execute the call, stop. Afterward, report the transaction hash and verify the result.`;
+}
 
-SECURITY RULES:
-1. Independently verify this is the official AgentKey contract on BNB Smart Chain Mainnet.
-2. If the address is a placeholder or cannot be verified, STOP. Do not send a transaction.
-3. Confirm the ABI, mint availability, wallet limit, exact payment, network, and estimated gas.
-4. Use the wallet's supported contract-call preview flow. Show me the destination, function, quantity, BNB value, and estimated gas.
-5. Wait for my explicit approval in the wallet before executing.
-6. Never ask for my seed phrase or private key. Never bypass wallet security.
-7. After execution, report the transaction hash and verify the receipt and NFT ownership.
-8. Do not claim gas sponsorship unless an actual sponsorship mechanism is configured.
-9. If the wallet cannot safely execute the contract call, stop and explain why.
+async function refreshMintStats() {
+  const mintedEl = document.getElementById("minted-count");
+  const percentEl = document.getElementById("minted-percent");
+  const barEl = document.getElementById("minted-bar");
+  const captionEl = document.getElementById("minted-caption");
+  const freeEl = document.getElementById("free-mint-caption");
+  const priceEl = document.getElementById("mint-price-caption");
 
-Prepare the transaction only after all checks pass.`;
+  try {
+    if (!window.ethers) throw new Error("Read library unavailable");
+    const provider = new ethers.JsonRpcProvider(BSC_RPC_URL, BSC_CHAIN_ID, { staticNetwork: true });
+    const contract = new ethers.Contract(AGENTKEY_CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+    const [minted, freeRemaining, priceOne, startTime, maxSupply] = await Promise.all([
+      contract.totalMinted(),
+      contract.freeMintsRemaining(),
+      contract.currentMintPrice(1),
+      contract.MINT_START_TIME(),
+      contract.MAX_SUPPLY()
+    ]);
+
+    liveMinted = Number(minted);
+    liveFreeRemaining = Number(freeRemaining);
+    livePriceOneWei = priceOne;
+    liveMintStart = Number(startTime);
+    const supply = Number(maxSupply);
+    const percent = supply > 0 ? Math.min(100, liveMinted / supply * 100) : 0;
+    mintedEl.textContent = `${liveMinted.toLocaleString()} / ${supply.toLocaleString()}`;
+    percentEl.textContent = `${percent.toFixed(2)}%`;
+    barEl.style.width = `${percent}%`;
+    captionEl.textContent = `Live data from BNB Smart Chain Mainnet. Mint starts at ${new Date(liveMintStart * 1000).toUTCString()}.`;
+    freeEl.textContent = `Global free mint slots remaining: ${liveFreeRemaining.toLocaleString()} / ${FREE_MINT_SUPPLY.toLocaleString()}`;
+    priceEl.textContent = `Current on-chain price for 1 NFT: ${ethers.formatEther(priceOne)} BNB`;
+    liveReadError = false;
+  } catch (error) {
+    liveReadError = true;
+    mintedEl.textContent = "—";
+    percentEl.textContent = "—%";
+    barEl.style.width = "0%";
+    captionEl.textContent = "Unable to load live contract data. Check the contract address and RPC availability.";
+    freeEl.textContent = "Free mint slots: unavailable — verify on-chain before minting.";
+    priceEl.textContent = "Mint price: unavailable — never guess the transaction value.";
+  }
 }
 
 /*
@@ -967,13 +1004,14 @@ Prepare the transaction only after all checks pass.`;
   3. Hide the template and X post button.
   4. Show mint progress and the prompt together.
 */
-document.getElementById("post-x").addEventListener("click", () => {
+document.getElementById("post-x").addEventListener("click", async () => {
   const postUrl =
     "https://twitter.com/intent/tweet?text=" +
     encodeURIComponent(xTemplates[currentIndex]);
 
   window.open(postUrl, "_blank", "noopener,noreferrer");
 
+  await refreshMintStats();
   promptEl.value = buildMintPrompt();
 
   postPreview.hidden = true;
@@ -997,22 +1035,8 @@ document.getElementById("copy-prompt").addEventListener("click", async () => {
   }
 });
 
-/*
-  MINT PROGRESS:
-  Do not display fabricated values.
-  Connect this section to totalMinted() on the deployed and verified
-  production contract before showing live statistics.
-*/
-function showMintStatsUnavailable() {
-  document.getElementById("minted-count").textContent = "—";
-  document.getElementById("minted-percent").textContent = "—%";
-  document.getElementById("minted-bar").style.width = "0%";
-
-  document.getElementById("minted-caption").textContent =
-    "Live blockchain data will appear after the official production contract is connected.";
-}
-
-showMintStatsUnavailable();
+refreshMintStats();
+setInterval(refreshMintStats, 60000);
 
 /* Staking countdown target. */
 const stakingDate =

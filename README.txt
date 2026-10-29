@@ -15,4 +15,4 @@ Deployment:
 3. Cloudflare Pages will redeploy automatically when Git integration is enabled.
 
 Important:
-This is a static landing page. NFT minting, marketplace transactions, wallet verification, on-chain staking, and gas sponsorship are not connected yet. The contract address is intentionally a placeholder; do not enable transactions until the official AgentKey contract is deployed and verified on BNB Smart Chain Mainnet.
+The landing page is configured to read totalMinted(), freeMintsRemaining(), currentMintPrice(1), MINT_START_TIME(), and MAX_SUPPLY() from the supplied AgentKey contract on BNB Smart Chain Mainnet. It prepares an AI-agent prompt for the mint(uint256) function; it does not directly submit wallet transactions. The website cannot independently certify the deployed contract as safe. Verify the contract and exact payment in the wallet before approving any transaction. Marketplace transactions and on-chain staking UI remain unconnected.
