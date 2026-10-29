@@ -1,16 +1,18 @@
 AGENTKEY WEBSITE PACKAGE
 
 Files:
-- index.html: responsive AgentKey landing page, retaining the existing dark navy, silver/blue and gold design and section order.
+- index.html: responsive AgentKey landing page with dark navy, silver/blue and gold styling.
 - favicon.ico: browser tab icon.
 - favicon.png: high-resolution icon.
 - favicon-32.png: 32x32 browser icon.
 - apple-touch-icon.png: mobile home-screen icon.
+- robots.txt: allows search engine crawling and points to the sitemap.
+- sitemap.xml: homepage sitemap for agentkey.xyz.
 
-Deploy:
-1. Upload all files to the root of your GitHub repository (same folder as index.html).
+Deployment:
+1. Upload the files to the root of the GitHub repository, next to index.html.
 2. Commit the changes.
-3. If using Cloudflare Pages with Git integration, it will redeploy automatically.
+3. Cloudflare Pages will redeploy automatically when Git integration is enabled.
 
 Important:
-The site is a polished static landing-page preview. Minting, marketplace transactions, wallet verification, on-chain staking and gas sponsorship are not yet connected to smart contracts/backend. The countdown date currently remains November 5, 2026 at 00:00 WIB, as in the prior design.
+This is a static landing page. NFT minting, marketplace transactions, wallet verification, on-chain staking, and gas sponsorship are not connected yet. The contract address is intentionally a placeholder; do not enable transactions until the official AgentKey contract is deployed and verified on BNB Smart Chain Mainnet.
