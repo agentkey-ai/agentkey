@@ -132,6 +132,31 @@ button, textarea { font: inherit; }
   color: #10121a;
 }
 
+.button.discover {
+  position: relative;
+  gap: 10px;
+  padding: 13px 21px;
+  border: 1px solid rgba(103,201,255,.8);
+  border-radius: 999px;
+  color: #f5f8ff;
+  background: linear-gradient(115deg, rgba(18,43,72,.96), rgba(25,29,45,.96) 58%, rgba(91,70,36,.92));
+  box-shadow: 0 0 0 1px rgba(103,201,255,.08), 0 8px 26px rgba(36,133,204,.16);
+  letter-spacing: .25px;
+}
+.button.discover::after {
+  content: "↗";
+  display: inline-block;
+  color: var(--blue);
+  font-size: 15px;
+  transition: transform .2s ease;
+}
+.button.discover:hover {
+  border-color: var(--gold);
+  background: linear-gradient(115deg, rgba(19,55,86,.98), rgba(36,35,48,.98) 58%, rgba(112,83,38,.96));
+  box-shadow: 0 0 22px rgba(103,201,255,.2), 0 10px 30px rgba(0,0,0,.25);
+}
+.button.discover:hover::after { transform: translate(2px,-2px); }
+
 .hero {
   position: relative;
   display: flex;
@@ -494,6 +519,38 @@ h1 span {
   margin-top: 10px;
 }
 
+/* AgentKey market dashboard: black + gold, inspired by the supplied reference */
+#market { background: #090806; color: #e9dcae; border-top: 1px solid rgba(216,184,117,.18); border-bottom: 1px solid rgba(216,184,117,.18); }
+#market .section-heading { text-align: left; max-width: none; margin: 0 0 24px; }
+#market .section-heading h2 { color: #f0d88c; font: 400 clamp(28px,3vw,38px)/1.2 Georgia,serif; }
+#market .section-heading p { max-width: 720px; }
+.market-live-head { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.market-live-label { display:inline-flex; align-items:center; gap:9px; color:#b5a77e; font-size:12px; }
+.market-live-dot { width:8px; height:8px; border-radius:50%; background:#58a77b; box-shadow:0 0 10px rgba(88,167,123,.35); }
+.market-live-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.market-live-actions .button { margin:0; min-height:38px; padding:9px 13px; font-size:11px; }
+.market-metrics { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.market-metric { min-width:0; min-height:94px; padding:14px 15px; background:#0d0b07; border:1px solid rgba(216,184,117,.25); }
+.market-metric span { display:block; color:#a99b73; font-size:9px; letter-spacing:1.6px; text-transform:uppercase; margin-bottom:10px; }
+.market-metric strong { display:block; color:#efd887; font:600 clamp(14px,1.4vw,20px)/1.35 ui-monospace,SFMono-Regular,Consolas,monospace; overflow-wrap:anywhere; }
+.market-metric small { display:block; margin-top:5px; color:#8f8569; font-size:10px; line-height:1.5; }
+.market-data-note { margin:12px 0 25px; padding:11px 13px; border-left:2px solid #8d7439; background:rgba(216,184,117,.05); color:#a99f83; font-size:11px; line-height:1.7; }
+.market-tables { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.market-table h3 { margin:0 0 10px; color:#d9bb65; font:500 12px ui-monospace,SFMono-Regular,Consolas,monospace; letter-spacing:1.5px; text-transform:uppercase; }
+.market-table-row { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:38px; border-bottom:1px solid rgba(216,184,117,.18); color:#d9d1b8; font:12px ui-monospace,SFMono-Regular,Consolas,monospace; }
+.market-table-row span:last-child { color:#9c916f; white-space:nowrap; }
+.market-table-empty { padding:16px 0; color:#8f8569; font-size:12px; line-height:1.7; }
+.market-tools { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:28px; }
+.market-tool { padding:18px; border:1px solid rgba(216,184,117,.22); background:#0d0b07; }
+.market-tool .eyebrow { color:#bda25d; }
+.market-tool h3 { margin:10px 0; color:#ead9a1; }
+.market-tool p { color:#a99f83; font-size:12px; line-height:1.7; }
+.market-tool .button { width:100%; margin:10px 0 0; }
+#market .prompt-panel { max-width:none; background:#0d0b07; border-color:rgba(216,184,117,.25); }
+#market textarea { width:100%; background:#080705; color:#ead9a1; border:1px solid rgba(216,184,117,.25); padding:12px; }
+@media(max-width:1000px) { .market-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@media(max-width:650px) { .market-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); } .market-tables,.market-tools { grid-template-columns:1fr; } .market-metric { min-height:82px; padding:12px; } }
+
 .rarity { text-align: center; }
 .rarity .symbol { font-size: 40px; color: var(--gold); }
 
@@ -574,22 +631,22 @@ footer .logo { font-size: 19px; }
 </head>
 
 <body>
-<a class="skip-link" href="#main-content">Skip to content</a>
+<a class="skip-link" href="/">Skip to content</a>
 
 <header class="nav">
-  <a class="brand" href="#home" aria-label="AgentKey home">
+  <a class="brand" href="/home" aria-label="AgentKey home">
     <span class="logo">AGENTKEY</span>
   </a>
 
   <nav class="links" aria-label="Main navigation">
-    <a href="#home">Home</a>
-    <a href="#mint">Mint</a>
-    <a href="#market">Market</a>
-    <a href="#staking">Staking</a>
-    <a href="#collection">Collection</a>
+    <a href="/home">Home</a>
+    <a href="/mint">Mint</a>
+    <a href="/market">Market</a>
+    <a href="/staking">Staking</a>
+    <a href="/collection">Collection</a>
   </nav>
 
-  <a class="button" href="#mint">Explore AgentKey</a>
+  <a class="button" href="/mint">Explore AgentKey</a>
 </header>
 
 <main id="main-content">
@@ -607,8 +664,8 @@ footer .logo { font-size: 19px; }
     </p>
 
     <div class="actions">
-      <a class="button primary" href="#collection">Explore Collection ↗</a>
-      <a class="button" href="#about">Discover AgentKey</a>
+      <a class="button primary" href="/collection">Explore Collection ↗</a>
+      <a class="button discover" href="/about">Discover AgentKey</a>
     </div>
   </div>
 
@@ -749,6 +806,18 @@ footer .logo { font-size: 19px; }
         <p class="progress-caption"><a href="https://bscscan.com/address/0xD302f00DA78e38B12C2453E1D47c08D6e918fbe8" target="_blank" rel="noopener noreferrer">View contract on BscScan ↗</a></p>
       </div>
 
+      <div class="mint-progress" id="mint-countdown-card" aria-live="polite">
+        <div class="eyebrow">MINT SCHEDULE · UTC</div>
+        <h3 class="progress-title">Mint Opens In</h3>
+        <div class="countdown" id="mint-countdown">
+          <div class="time-box"><strong id="mint-days">—</strong><span>Days</span></div>
+          <div class="time-box"><strong id="mint-hours">—</strong><span>Hours</span></div>
+          <div class="time-box"><strong id="mint-minutes">—</strong><span>Minutes</span></div>
+          <div class="time-box"><strong id="mint-seconds">—</strong><span>Seconds</span></div>
+        </div>
+        <p class="progress-caption" id="mint-start-date">Reading the official start time from the live contract…</p>
+      </div>
+
       <div class="eyebrow">AI AGENT PROMPT</div>
       <h3>Copy this prompt into your AI agent</h3>
 
@@ -781,55 +850,56 @@ footer .logo { font-size: 19px; }
 
 <section class="section" id="market">
   <div class="section-heading">
-    <div class="eyebrow">Agent-Powered Trading</div>
-    <h2>The AgentKey Market</h2>
-    <p>View current AgentKey listings and sales on Element, then prepare an AI-agent-assisted listing.</p>
+    <div class="eyebrow">AI Agent · NFT Trading</div>
+    <h2>Sell Your AgentKey with an AI Agent</h2>
+    <p>Copy the prompt below into your compatible AI agent. It will guide the agent through checking your NFT, preparing a listing, and asking for your wallet approval before any transaction.</p>
   </div>
 
-  <div class="market-preview">
-    <article class="market-card">
-      <div class="placeholder-art" aria-hidden="true">↗</div>
-      <div class="eyebrow">Live Marketplace</div>
-      <h3>AgentKey on Element</h3>
-      <p>Open Element's live marketplace and search for the AgentKey contract address to inspect available listings, recent sales, and collection activity.</p>
-      <a class="button primary" href="https://element.market/" target="_blank" rel="noopener noreferrer">View Live Listings &amp; Sales</a>
-      <button class="button" type="button" id="copy-market-contract" style="margin-top:10px">Copy Contract Address</button>
-      <p class="prompt-footnote">Element activity is displayed on Element itself. This website does not fabricate or independently stream sales data.</p>
+  <div class="market-tools" style="grid-template-columns:minmax(0,760px);justify-content:center">
+    <article class="market-tool">
+      <div class="eyebrow">Automatic Listing Assistant</div>
+      <h3>AgentKey Selling Prompt</h3>
+      <p>Use this prompt in an AI agent that can access Element Market and interact with your connected wallet. Actual execution depends on the agent's supported tools and permissions.</p>
+      <textarea id="sell-agent-prompt" readonly rows="15" aria-label="AgentKey selling prompt" style="width:100%;margin:14px 0;padding:14px;background:#080d18;color:var(--text);border:1px solid var(--line);border-radius:8px;line-height:1.6;resize:vertical"></textarea>
+      <div class="mint-actions">
+        <button class="button primary" type="button" id="copy-sell-prompt">Copy Selling Prompt</button>
+        <a class="button" href="https://element.market/" target="_blank" rel="noopener noreferrer">Open Element Market ↗</a>
+      </div>
+      <p id="sell-copy-status" class="copy-status" role="status" aria-live="polite"></p>
+      <p class="prompt-footnote">Safety: never share your seed phrase or private key. Review and approve the final listing transaction yourself in your wallet.</p>
     </article>
-
-    <article class="market-card">
-      <div class="placeholder-art" aria-hidden="true">✦</div>
-      <div class="eyebrow">AI Agent Trading</div>
-      <h3>Prepare a Sale</h3>
-      <p>Generate a prompt for a compatible AI agent to locate your AgentKey NFT, check Element listing support, and prepare a listing.</p>
-      <button class="button primary" type="button" id="build-sell-prompt">Create Selling Prompt</button>
-    </article>
-
-    <article class="market-card">
-      <div class="placeholder-art" aria-hidden="true">⌁</div>
-      <div class="eyebrow">Safety First</div>
-      <h3>Review Before Listing</h3>
-      <p>The agent must confirm the NFT, chosen price, marketplace, fees, and transaction details. It must never request your seed phrase or private key.</p>
-      <p class="prompt-footnote">Automatic execution depends on the capabilities and permissions of your connected AI agent and Element. Listing may require wallet approval and gas.</p>
-    </article>
-  </div>
-
-  <div class="prompt-panel" id="sell-prompt-panel" hidden>
-    <h3>AgentKey Selling Prompt</h3>
-    <p>Copy this prompt into your compatible AI agent in Element or Binance Agentic Wallet.</p>
-    <textarea id="sell-agent-prompt" readonly rows="13" aria-label="AgentKey selling prompt"></textarea>
-    <div class="mint-actions">
-      <button class="button primary" type="button" id="copy-sell-prompt">Copy Selling Prompt</button>
-      <a class="button" href="https://element.market/" target="_blank" rel="noopener noreferrer">Open Element</a>
-    </div>
-    <p id="sell-copy-status" class="copy-status" role="status" aria-live="polite"></p>
   </div>
 </section>
 
 <section class="section" id="staking">
   <div class="cta">
-    <div class="eyebrow">Staking</div>
-    <h2>Staking Opens In</h2>
+    <div class="eyebrow">Hold Your Key. Unlock Your Potential.</div>
+    <h2>Your AgentKey Could Earn $AGKEY</h2>
+    <p>Stake your AgentKey NFT to earn $AGKEY. Your NFT’s rarity shapes its earning tier — the rarer your Key, the greater its potential rewards.</p>
+
+    <div class="rarities" style="margin:28px auto;max-width:900px">
+      <article class="rarity">
+        <div class="symbol">◇</div>
+        <h3>Common</h3>
+        <p>Start your earning journey.</p>
+        <p><strong>Base earning tier</strong></p>
+      </article>
+      <article class="rarity">
+        <div class="symbol">✧</div>
+        <h3>Rare</h3>
+        <p>A rarer Key, a higher tier.</p>
+        <p><strong>Enhanced earning potential</strong></p>
+      </article>
+      <article class="rarity">
+        <div class="symbol">✦</div>
+        <h3>Legendary</h3>
+        <p>The highest rarity tier.</p>
+        <p><strong>Highest earning potential</strong></p>
+      </article>
+    </div>
+
+    <h3>Staking Is Coming</h3>
+    <p>Keep your Key close. When staking opens, eligible holders will be able to stake their NFT and earn $AGKEY according to its rarity tier. Exact reward rates and staking rules will be announced before launch.</p>
 
     <div class="countdown" aria-label="Countdown until staking starts">
       <div class="time-box">
@@ -850,7 +920,7 @@ footer .logo { font-size: 19px; }
       </div>
     </div>
 
-    <p>November 5, 2026 · 07:00 WIB</p>
+    <p>November 5, 2026 · 00:00 UTC</p>
   </div>
 </section>
 
@@ -885,7 +955,7 @@ footer .logo { font-size: 19px; }
 </main>
 
 <footer>
-  <a class="brand" href="#home">
+  <a class="brand" href="/home">
     <span class="logo">AGENTKEY</span>
   </a>
 
@@ -1010,6 +1080,42 @@ async function refreshMintStats() {
   }
 }
 
+function renderMintCountdown() {
+  const dateEl = document.getElementById("mint-start-date");
+  const ids = {
+    days: document.getElementById("mint-days"),
+    hours: document.getElementById("mint-hours"),
+    minutes: document.getElementById("mint-minutes"),
+    seconds: document.getElementById("mint-seconds")
+  };
+
+  if (!Number.isFinite(liveMintStart) || liveMintStart <= 0) {
+    dateEl.textContent = "Official mint opening time is unavailable. Could not read MINT_START_TIME from the contract.";
+    Object.values(ids).forEach(el => el.textContent = "—");
+    return;
+  }
+
+  const startMs = liveMintStart * 1000;
+  dateEl.textContent = "Scheduled opening: " + new Date(startMs).toISOString().replace(".000Z", " UTC");
+  const remaining = startMs - Date.now();
+
+  if (remaining <= 0) {
+    document.querySelector("#mint-countdown-card .progress-title").textContent = "Mint Opening Time Reached";
+    Object.values(ids).forEach(el => el.textContent = "00");
+    dateEl.textContent += " · The scheduled start time has passed. Check the contract to confirm mint availability.";
+    return;
+  }
+
+  document.querySelector("#mint-countdown-card .progress-title").textContent = "Mint Opens In";
+  const totalSeconds = Math.floor(remaining / 1000);
+  ids.days.textContent = String(Math.floor(totalSeconds / 86400)).padStart(2, "0");
+  ids.hours.textContent = String(Math.floor((totalSeconds % 86400) / 3600)).padStart(2, "0");
+  ids.minutes.textContent = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  ids.seconds.textContent = String(totalSeconds % 60).padStart(2, "0");
+}
+
+setInterval(renderMintCountdown, 1000);
+
 /*
   MAIN FLOW:
   1. Open the X post composer.
@@ -1025,6 +1131,7 @@ document.getElementById("post-x").addEventListener("click", async () => {
   window.open(postUrl, "_blank", "noopener,noreferrer");
 
   await refreshMintStats();
+  renderMintCountdown();
   promptEl.value = buildMintPrompt();
 
   postPreview.hidden = true;
@@ -1036,42 +1143,32 @@ document.getElementById("post-x").addEventListener("click", async () => {
   });
 });
 
-/* Prepare an AI-agent-assisted Element listing prompt. */
+/* Build an end-to-end AI-agent selling prompt. */
 function buildSellPrompt() {
-  return `Help me list my AgentKey (AGKEY) NFT for sale on Element, if supported.
+  return `Act as my AgentKey NFT listing assistant and help me list an NFT I own for sale on Element Market. Complete every step your available tools support, but never bypass my wallet's final approval.
 
-Network: BNB Smart Chain Mainnet
+Network: BNB Smart Chain Mainnet (Chain ID 56)
+Collection: AgentKey (AGKEY)
 Collection contract: ${AGENTKEY_CONTRACT_ADDRESS}
-Collection explorer: https://bscscan.com/address/${AGENTKEY_CONTRACT_ADDRESS}
+Explorer: https://bscscan.com/address/${AGENTKEY_CONTRACT_ADDRESS}
 Marketplace: https://element.market/
 
-1. Open Element and search for the exact collection contract address above. Confirm the collection and network before proceeding.
-2. Check which AgentKey NFTs I own in my connected wallet. Do not assume ownership; verify each token ID and current owner.
-3. Ask me which token ID to list and the exact asking price in BNB if I have not specified them. Do not choose a price without my confirmation.
-4. Check Element's current listing options, fees, approval requirements, and estimated gas. Do not claim a listing is live unless Element confirms it or the transaction can be verified.
-5. Prepare the listing transaction and show the token ID, price, fees, marketplace contract, and transaction details before requesting my approval.
-6. Never request or expose my seed phrase or private key. Do not transfer my NFT to an unrelated address, sign an unclear message, or approve an unlimited/unrelated transaction.
-7. Proceed only if the marketplace and transaction are supported and I approve the wallet request. If the agent cannot access Element or cannot safely create the listing, stop and give me manual steps instead.
-8. After completion, report the listing URL and transaction hash if available, and verify the listing status.
+TASK
+1. Open Element Market using your available browser/tools and confirm that BNB Smart Chain is selected.
+2. Search for the exact collection contract above. Verify the collection contract; do not rely on collection name alone.
+3. Inspect the connected wallet and identify AgentKey NFTs that I actually own. Show each token ID and ask me to select one if there are multiple.
+4. Check current marketplace support, comparable listings if accessible, listing fees, required approvals, and estimated gas. Do not invent market prices or fees.
+5. If I have not given an asking price, ask me for the price in BNB. Do not list until I confirm the token ID and price.
+6. Prepare the listing and show me the NFT/token ID, price, fees, network, marketplace contract, and transaction or signature details before requesting approval.
+7. Never request my seed phrase or private key. Never send my NFT to another address, sign an unclear message, or approve unrelated/unlimited permissions.
+8. Ask me to approve the final action in my wallet. Do not claim that the NFT is listed until the marketplace confirms it or the result can be independently verified.
+9. After approval, verify the listing status and provide the listing URL and transaction hash if available.
+10. If your tools cannot access Element or safely complete any step, stop at that step and explain exactly what I need to do manually. Do not pretend to have completed an action.
 
-Do not invent floor prices, sales, listing status, or transaction results.`;
+Start by checking marketplace and wallet access, then guide me through the minimum steps needed to create the listing safely.`;
 }
 
-document.getElementById("build-sell-prompt").addEventListener("click", () => {
-  document.getElementById("sell-agent-prompt").value = buildSellPrompt();
-  document.getElementById("sell-prompt-panel").hidden = false;
-  document.getElementById("sell-prompt-panel").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-document.getElementById("copy-market-contract").addEventListener("click", async () => {
-  const button = document.getElementById("copy-market-contract");
-  try {
-    await navigator.clipboard.writeText(AGENTKEY_CONTRACT_ADDRESS);
-    button.textContent = "Contract Address Copied";
-  } catch (error) {
-    window.prompt("Copy the AgentKey contract address:", AGENTKEY_CONTRACT_ADDRESS);
-  }
-});
+document.getElementById("sell-agent-prompt").value = buildSellPrompt();
 
 document.getElementById("copy-sell-prompt").addEventListener("click", async () => {
   const field = document.getElementById("sell-agent-prompt");
@@ -1103,7 +1200,7 @@ setInterval(refreshMintStats, 60000);
 
 /* Staking countdown target. */
 const stakingDate =
-  new Date("2026-11-05T00:00:00+07:00").getTime();
+  new Date("2026-11-05T00:00:00Z").getTime();
 
 function updateCountdown() {
   const remaining = Math.max(0, stakingDate - Date.now());
@@ -1128,6 +1225,35 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+/* Clean path navigation: /mint, /market, /staking, /collection, /about (no hash fragments). */
+const cleanRoutes = {
+  "/": "home", "/home": "home", "/mint": "mint", "/market": "market",
+  "/staking": "staking", "/collection": "collection", "/about": "about"
+};
+function navigateCleanPath(path, updateHistory = true) {
+  const normalized = path.replace(/\/+$/, "") || "/";
+  const sectionId = cleanRoutes[normalized] || "home";
+  if (updateHistory && window.location.pathname !== normalized) {
+    window.history.pushState({}, "", normalized);
+  }
+  const target = document.getElementById(sectionId);
+  if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+document.addEventListener("click", (event) => {
+  const link = event.target.closest('a[href^="/"]');
+  if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === "_blank") return;
+  const url = new URL(link.href, window.location.origin);
+  if (url.origin !== window.location.origin || !(url.pathname in cleanRoutes)) return;
+  event.preventDefault();
+  navigateCleanPath(url.pathname, true);
+});
+window.addEventListener("popstate", () => navigateCleanPath(window.location.pathname, false));
+window.addEventListener("DOMContentLoaded", () => {
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  if (path !== "/") setTimeout(() => navigateCleanPath(path, false), 0);
+});
+
 </script>
 
 </body>
